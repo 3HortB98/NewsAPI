@@ -36,7 +36,8 @@ class HomeViewModel: ViewModel(){
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                newsAdapter.setData(it)
+                articleObservable.value= it
+
 
             },{
                 it.printStackTrace()}))

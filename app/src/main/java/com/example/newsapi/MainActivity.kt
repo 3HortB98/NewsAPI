@@ -16,11 +16,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-
         rvResults.layoutManager = LinearLayoutManager(this)
         rvResults.adapter= newsAdapter
+        val homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+        val observer = Observer<List<Article>> {results->
+            if (results != null) {
+                newsAdapter.setData(results)
+            }
+        }
+
+
        homeViewModel.getArticles(application)
+        homeViewModel.getArticleObservable().observe(this,observer)
+
 
 
 
